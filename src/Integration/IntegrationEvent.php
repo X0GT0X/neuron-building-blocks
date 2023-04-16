@@ -11,7 +11,7 @@ class IntegrationEvent
      */
     public function __construct(
         public Uuid $id,
-        public DateTimeImmutable $occurredOn,
+        public \DateTimeImmutable $occurredOn,
         public string $eventType,
         public array $data,
     ) {
