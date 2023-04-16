@@ -1,0 +1,19 @@
+{
+    "name": "neuron/building-blocks",
+    "description": "Building blocks for Neuron microservices",
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "Neuron\\BuildingBlocks\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrii Vozniuk",
+            "email": "a.vozniuk00@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/uid": "^6.2"
+    }
+}
