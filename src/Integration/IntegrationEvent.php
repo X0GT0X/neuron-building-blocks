@@ -1,5 +1,7 @@
 <?php
 
+namespace Neuron\BuildingBlocks\Integration;
+
 use Symfony\Component\Uid\Uuid;
 
 class IntegrationEvent
