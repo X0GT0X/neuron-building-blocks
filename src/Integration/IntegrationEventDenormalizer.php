@@ -24,6 +24,6 @@ final readonly class IntegrationEventDenormalizer implements DenormalizerInterfa
 
     public function supportsDenormalization(mixed $data, string $type, string $format = null)
     {
-        return $type === IntegrationEvent::class;
+        return $type === SentIntegrationEventInterface::class;
     }
 }

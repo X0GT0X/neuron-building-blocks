@@ -16,7 +16,7 @@ readonly class IntegrationEventSerializer implements TransportSerializerInterfac
     public function decode(array $encodedEnvelope): Envelope
     {
         $headers = $encodedEnvelope['headers'];
-        $event = $this->serializer->deserialize($encodedEnvelope['body'], IntegrationEvent::class, 'json');
+        $event = $this->serializer->deserialize($encodedEnvelope['body'], SentIntegrationEventInterface::class, 'json');
 
         $stamps = [];
         if (isset($headers['stamps'])) {

@@ -24,6 +24,6 @@ final readonly class IntegrationEventNormalizer implements NormalizerInterface
 
     public function supportsNormalization(mixed $data, string $format = null): bool
     {
-        return $data instanceof IntegrationEvent;
+        return $data instanceof SentIntegrationEventInterface;
     }
 }
