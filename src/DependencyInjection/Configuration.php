@@ -24,6 +24,7 @@ class Configuration implements ConfigurationInterface
             ->normalizeKeys(false)
             ->variablePrototype()
             ->end()
+            ->end()
             ->end();
 
         return $treeBuilder;
