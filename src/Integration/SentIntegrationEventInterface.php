@@ -2,6 +2,6 @@
 
 namespace Neuron\BuildingBlocks\Integration;
 
-interface SendedIntegrationEventInterface
+interface SentIntegrationEventInterface
 {
 }
