@@ -20,7 +20,10 @@ class Configuration implements ConfigurationInterface
             ->children()
             ->arrayNode(self::INTEGRATION_EVENTS_MAP)
             ->info('Associative array: event type => event class name.')
-            ->defaultNull()
+            ->useAttributeAsKey('name')
+            ->normalizeKeys(false)
+            ->variablePrototype()
+            ->end()
             ->end();
 
         return $treeBuilder;
