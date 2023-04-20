@@ -5,6 +5,9 @@ services:
 
     Neuron\:
         resource: '../../*'
+        exclude:
+            - '../../DependencyInjection/'
+
 
 
 
