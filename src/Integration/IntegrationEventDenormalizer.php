@@ -3,6 +3,7 @@
 namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Uid\Uuid;
 
 final readonly class IntegrationEventDenormalizer implements DenormalizerInterface
 {
@@ -15,8 +16,8 @@ final readonly class IntegrationEventDenormalizer implements DenormalizerInterfa
         $eventClass = $this->integrationEventMap->getEventClassByEventType($data['type']);
 
         return $eventClass::from(
-            $data['id'],
-            $data['occurredOn'],
+            Uuid::fromString($data['id']),
+            new \DateTimeImmutable($data['occurredOn']),
             $data['data']
         );
     }
