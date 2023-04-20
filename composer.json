@@ -1,7 +1,7 @@
 {
     "name": "neuron/building-blocks",
     "description": "Building blocks for Neuron microservices",
-    "type": "library",
+    "type": "symfony-bundle",
     "autoload": {
         "psr-4": {
             "Neuron\\BuildingBlocks\\": "src/"
@@ -14,8 +14,35 @@
         }
     ],
     "require": {
-        "symfony/uid": "^6.2",
+        "php": ">=8.2.4",
+        "symfony/flex": "^2",
+        "symfony/framework-bundle": "6.2.*",
+        "symfony/messenger": "^6.2",
+        "symfony/property-access": "6.2.*",
         "symfony/serializer": "^6.2",
-        "symfony/messenger": "^6.2"
+        "symfony/uid": "^6.2"
+    },
+    "scripts": {
+        "auto-scripts": {
+            "cache:clear": "symfony-cmd",
+            "assets:install %PUBLIC_DIR%": "symfony-cmd"
+        },
+        "post-install-cmd": [
+            "@auto-scripts"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true
+        }
+    },
+    "extra": {
+        "symfony": {
+            "allow-contrib": false,
+            "require": "6.2.*"
+        }
     }
 }
