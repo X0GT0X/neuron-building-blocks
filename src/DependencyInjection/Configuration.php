@@ -14,14 +14,21 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder(self::NAME);
+        $rootNode = $treeBuilder->getRootNode();
 
-        $treeBuilder->getRootNode()
+//        $rootNode
+//            ->children()
+//                ->arrayNode(self::INTEGRATION_EVENTS_MAP)
+//                    ->info('Associative array: event type => event class name.')
+//                    ->useAttributeAsKey('name')
+//                    ->normalizeKeys(false)
+//                ->end()
+//            ->end();
+
+        $rootNode
             ->children()
-                ->arrayNode(self::INTEGRATION_EVENTS_MAP)
-                    ->info('Associative array: event type => event class name.')
-                    ->useAttributeAsKey('name')
-                    ->normalizeKeys(false)
-                ->end()
+            ->scalarNode('foo')->defaultValue('bar')->end()
+            ->scalarNode('bar')->defaultValue('foo')->end()
             ->end();
 
         return $treeBuilder;
