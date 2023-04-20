@@ -8,18 +8,18 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class NeuronBuildingBlocksExtension extends Extension
+final class NeuronBuildingBlocksExtension extends Extension
 {
 
     /**
      * @throws \Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yaml');
 
-        $configuration = $this->getConfiguration($configs, $container);
+        $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
         $definition = $container->getDefinition(IntegrationEventMap::class);
