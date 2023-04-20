@@ -20,7 +20,7 @@ class IntegrationEventMap
             throw new ConfigurationException(\sprintf('Event class %s does not exist', $eventClass));
         }
 
-        if (!\is_a($eventClass, IntegrationEvent::class)) {
+        if (!\is_a($eventClass, IntegrationEvent::class, true)) {
             throw new ConfigurationException(\sprintf('Event class %s does not extend %s', $eventClass, IntegrationEvent::class));
         }
 
