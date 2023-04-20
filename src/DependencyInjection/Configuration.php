@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface
                     ->info('Associative array: event type => event class name.')
                     ->useAttributeAsKey('name')
                     ->normalizeKeys(false)
+                    ->variablePrototype()->end()
                 ->end()
             ->end();
 
