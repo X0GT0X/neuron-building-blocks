@@ -4,6 +4,7 @@
 ###< IDE and OS files ###
 
 /vendor/
+/var/
 
 ###> friendsofphp/php-cs-fixer ###
 /.php-cs-fixer.php
