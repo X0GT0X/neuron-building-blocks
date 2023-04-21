@@ -42,7 +42,9 @@
         "post-update-cmd": [
             "@auto-scripts"
         ],
-        "test": "bin/phpunit --coverage-clover ./coverage.xml"
+        "test": "bin/phpunit --coverage-clover ./coverage.xml",
+        "php-cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -v --dry-run --allow-risky=yes --using-cache=no",
+        "php-stan": "vendor/bin/phpstan analyse -c phpstan.neon"
     },
     "config": {
         "allow-plugins": {
