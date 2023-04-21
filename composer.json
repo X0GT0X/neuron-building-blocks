@@ -2,6 +2,7 @@
     "name": "neuron/building-blocks",
     "description": "Building blocks for Neuron microservices",
     "type": "symfony-bundle",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Neuron\\BuildingBlocks\\": "src/"
