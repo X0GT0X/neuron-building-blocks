@@ -24,6 +24,7 @@ class AbstractBusinessRuleTest extends TestCase
         $this->businessRule = new TestBusinessRule('incorrect');
 
         $this->assertEquals('Provided param \'incorrect\' is incorrect', $this->businessRule->getMessage());
+        $this->assertEquals(['incorrect'], $this->businessRule->getMessageArguments());
     }
 
     public function testThatIsBrokenReturnsFalseWhenProvidedParametersAreCorrect(): void
