@@ -80,9 +80,6 @@ jobs:
           fail_ci_if_error: true
           verbose: true
 
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Code coverage badge generation
         uses: timkrase/phpunit-coverage-badge@v1.2.1
         with:
