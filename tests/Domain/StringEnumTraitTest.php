@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Tests\Domain;
 
 use Neuron\BuildingBlocks\Domain\StringEnumTrait;
@@ -13,7 +15,8 @@ class StringEnumTraitTest extends TestCase
     }
 }
 
-enum SomeStringEnum : string {
+enum SomeStringEnum: string
+{
     use StringEnumTrait;
 
     case Value = 'VALUE';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Tests\Domain;
 
 use Neuron\BuildingBlocks\Domain\AbstractBusinessRule;
@@ -32,14 +34,16 @@ class AbstractBusinessRuleTest extends TestCase
     }
 }
 
-class TestBusinessRule extends AbstractBusinessRule {
-    public function __construct(private readonly string $someParam)
-    {
+class TestBusinessRule extends AbstractBusinessRule
+{
+    public function __construct(
+        private readonly string $someParam
+    ) {
     }
 
     public function isBroken(): bool
     {
-        return $this->someParam !== 'correct';
+        return 'correct' !== $this->someParam;
     }
 
     public function getMessageTemplate(): string
@@ -51,4 +55,4 @@ class TestBusinessRule extends AbstractBusinessRule {
     {
         return [$this->someParam];
     }
-};
+}

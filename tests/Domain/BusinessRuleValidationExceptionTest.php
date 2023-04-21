@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Tests\Domain;
 
 use Neuron\BuildingBlocks\Domain\BusinessRuleInterface;
@@ -34,6 +36,6 @@ class BusinessRuleValidationExceptionTest extends TestCase
 
         $exception = new BusinessRuleValidationException($brokenRule);
 
-        $this->assertEquals(sprintf('%s: Broken rule message', $brokenRule::class), (string) $exception);
+        $this->assertEquals(\sprintf('%s: Broken rule message', $brokenRule::class), (string) $exception);
     }
 }

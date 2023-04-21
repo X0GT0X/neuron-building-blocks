@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Tests\Domain;
 
 use Neuron\BuildingBlocks\Domain\BaseId;
