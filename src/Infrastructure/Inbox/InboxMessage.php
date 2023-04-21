@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\Infrastructure\Configuration\Inbox;
 
 use Symfony\Component\Uid\Uuid;

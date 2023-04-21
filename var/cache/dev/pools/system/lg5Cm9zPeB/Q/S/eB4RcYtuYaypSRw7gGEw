@@ -1,0 +1,3 @@
+<?php //%5BC%5DNeuron%255CBuildingBlocks%255CKernel%2523getBundlesPath
+
+return [PHP_INT_MAX, 1682066752];

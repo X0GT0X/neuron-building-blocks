@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -7,11 +9,12 @@ use Symfony\Component\Uid\Uuid;
 
 final readonly class IntegrationEventDenormalizer implements DenormalizerInterface
 {
-    public function __construct(private IntegrationEventMap $integrationEventMap)
-    {
+    public function __construct(
+        private IntegrationEventMap $integrationEventMap
+    ) {
     }
 
-    public function denormalize(mixed $data, string $type, string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
     {
         $eventClass = $this->integrationEventMap->getEventClassByEventType($data['type']);
 
@@ -22,8 +25,8 @@ final readonly class IntegrationEventDenormalizer implements DenormalizerInterfa
         );
     }
 
-    public function supportsDenormalization(mixed $data, string $type, string $format = null)
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null)
     {
-        return $type === SentIntegrationEventInterface::class;
+        return SentIntegrationEventInterface::class === $type;
     }
 }

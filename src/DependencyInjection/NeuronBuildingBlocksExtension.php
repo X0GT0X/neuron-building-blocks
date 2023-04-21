@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\DependencyInjection;
 
 use Neuron\BuildingBlocks\Integration\IntegrationEventMap;
@@ -10,7 +12,6 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 final class NeuronBuildingBlocksExtension extends Extension
 {
-
     /**
      * @throws \Exception
      */

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -18,12 +20,12 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-                ->arrayNode(self::INTEGRATION_EVENTS_MAP)
-                    ->info('Associative array: event type => event class name.')
-                    ->useAttributeAsKey('name')
-                    ->normalizeKeys(false)
-                    ->variablePrototype()->end()
-                ->end()
+            ->arrayNode(self::INTEGRATION_EVENTS_MAP)
+            ->info('Associative array: event type => event class name.')
+            ->useAttributeAsKey('name')
+            ->normalizeKeys(false)
+            ->variablePrototype()->end()
+            ->end()
             ->end();
 
         return $treeBuilder;

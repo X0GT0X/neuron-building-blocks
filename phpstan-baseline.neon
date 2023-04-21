@@ -1,0 +1,21 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			count: 1
+			path: src/DependencyInjection/Configuration.php
+
+		-
+			message: "#^Method Neuron\\\\BuildingBlocks\\\\Integration\\\\IntegrationEventDenormalizer\\:\\:denormalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Integration/IntegrationEventDenormalizer.php
+
+		-
+			message: "#^Method Neuron\\\\BuildingBlocks\\\\Integration\\\\IntegrationEventNormalizer\\:\\:normalize\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Integration/IntegrationEventNormalizer.php
+
+		-
+			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, array\\<Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\StampInterface\\>\\|Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\StampInterface given\\.$#"
+			count: 1
+			path: src/Integration/IntegrationEventSerializer.php

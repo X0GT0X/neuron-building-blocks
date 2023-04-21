@@ -1,0 +1,13 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 8
+    checkUninitializedProperties: true
+    checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
+#        - tests
+    ignoreErrors:
+        -
+            message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"

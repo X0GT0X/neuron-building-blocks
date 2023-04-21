@@ -1,14 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Integration;
 
 use Neuron\BuildingBlocks\Exception\ConfigurationException;
 
 class IntegrationEventMap
 {
-    /**
-     * @var array<string, string>
-     */
+    /** @var array<string, class-string> */
     private array $map = [];
 
     /**

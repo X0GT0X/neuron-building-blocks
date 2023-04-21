@@ -1,16 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Uid\Uuid;
 
-readonly abstract class IntegrationEvent
+abstract readonly class IntegrationEvent
 {
     public function __construct(
         private Uuid $id,
         private \DateTimeImmutable $occurredOn,
     ) {
     }
+
+    /**
+     * @return array<string, mixed>
+     */
+    abstract public function getData(): array;
+
+    /**
+     * @param array<string, mixed> $data
+     */
+    abstract public static function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): self;
+
+    abstract public static function getEventType(): string;
 
     public function getId(): Uuid
     {
@@ -21,17 +35,4 @@ readonly abstract class IntegrationEvent
     {
         return $this->occurredOn;
     }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public abstract function getData(): array;
-
-
-    /**
-     * @param array<string, mixed> $data
-     */
-    public static abstract function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): self;
-
-    public static abstract function getEventType(): string;
 }
