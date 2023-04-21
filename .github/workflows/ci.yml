@@ -79,18 +79,3 @@ jobs:
           files: ./clover.xml
           fail_ci_if_error: true
           verbose: true
-
-      - name: Code coverage badge generation
-        uses: timkrase/phpunit-coverage-badge@v1.2.1
-        with:
-          coverage_badge_path: output/coverage.svg
-          push_badge: false
-
-      - name: Code coverage badge push
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          publish_dir: ./output
-          publish_branch: image-data
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          user_name: 'github-actions[bot]'
-          user_email: 'github-actions[bot]@users.noreply.github.com'
