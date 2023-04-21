@@ -41,7 +41,8 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
-        ]
+        ],
+        "test": "bin/phpunit --coverage-clover ./coverage.xml"
     },
     "config": {
         "allow-plugins": {
