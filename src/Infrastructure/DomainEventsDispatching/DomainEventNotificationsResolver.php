@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neuron\BuildingBlocks\Infrastructure\DomainEventDispatching;
+namespace Neuron\BuildingBlocks\Infrastructure\DomainEventsDispatching;
 
 use Neuron\BuildingBlocks\Application\Event\AbstractDomainEventNotification;
 use Neuron\BuildingBlocks\Application\Event\DomainEventNotification;

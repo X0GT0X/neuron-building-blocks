@@ -2,7 +2,13 @@ cs-fix:
 	vendor/bin/php-cs-fixer fix -v --allow-risky=yes
 
 php-stan:
-	$(PHP_CONT) vendor/bin/phpstan analyse
+	vendor/bin/phpstan analyse
 
 php-stan-baseline:
-	$(PHP_CONT) vendor/bin/phpstan analyse --generate-baseline
+	vendor/bin/phpstan analyse --generate-baseline
+
+test:
+	bin/phpunit
+
+test-with-coverage:
+	bin/phpunit --coverage-text
