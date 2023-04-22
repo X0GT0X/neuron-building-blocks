@@ -38,7 +38,7 @@ readonly class IntegrationEventSerializer implements TransportSerializerInterfac
         $event = $envelope->getMessage();
 
         if (!$event instanceof IntegrationEvent) {
-            throw new \Exception('Unsupported message class');
+            throw new \Exception(\sprintf('Unsupported message class \'%s\'', $event::class));
         }
 
         $allStamps = [];

@@ -6,11 +6,11 @@ namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Uid\Uuid;
 
-abstract readonly class IntegrationEvent
+abstract class IntegrationEvent
 {
     public function __construct(
-        private Uuid $id,
-        private \DateTimeImmutable $occurredOn,
+        private readonly Uuid $id,
+        private readonly \DateTimeImmutable $occurredOn,
     ) {
     }
 
