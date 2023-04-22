@@ -9,6 +9,3 @@ php-stan-baseline:
 
 test:
 	bin/phpunit
-
-test-with-coverage:
-	bin/phpunit --coverage-text
