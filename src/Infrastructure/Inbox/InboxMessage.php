@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neuron\Infrastructure\Configuration\Inbox;
+namespace Neuron\BuildingBlocks\Infrastructure\Inbox;
 
 use Symfony\Component\Uid\Uuid;
 
