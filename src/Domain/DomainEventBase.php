@@ -12,10 +12,10 @@ abstract class DomainEventBase implements DomainEventInterface
 
     private \DateTimeImmutable $occurredOn;
 
-    public function __construct()
+    public function __construct(?Uuid $id = null, ?\DateTimeImmutable $occurredOn = null)
     {
-        $this->id = Uuid::v4();
-        $this->occurredOn = new \DateTimeImmutable();
+        $this->id = $id ?? Uuid::v4();
+        $this->occurredOn = $occurredOn ?? new \DateTimeImmutable();
     }
 
     abstract public static function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): DomainEventInterface;
