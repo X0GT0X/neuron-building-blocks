@@ -6,7 +6,7 @@ namespace Neuron\BuildingBlocks\Domain;
 
 use Symfony\Component\Uid\Uuid;
 
-class DomainEventBase implements DomainEventInterface
+abstract class DomainEventBase implements DomainEventInterface
 {
     private Uuid $id;
 
@@ -17,6 +17,8 @@ class DomainEventBase implements DomainEventInterface
         $this->id = Uuid::v4();
         $this->occurredOn = new \DateTimeImmutable();
     }
+
+    abstract public static function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): DomainEventInterface;
 
     public function getId(): Uuid
     {
