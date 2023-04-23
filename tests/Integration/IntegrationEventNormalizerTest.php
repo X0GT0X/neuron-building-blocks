@@ -33,7 +33,7 @@ class IntegrationEventNormalizerTest extends TestCase
         $this->assertFalse($normalizer->supportsNormalization(new \stdClass()));
     }
 
-    public function testThatNormalizedDataCorrectly(): void
+    public function testThatNormalizesDataCorrectly(): void
     {
         $objectNormalizer = $this->createMock(ObjectNormalizer::class);
         $objectNormalizer->expects($this->once())

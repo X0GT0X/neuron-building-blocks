@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Neuron\BuildingBlocks\Tests\Infrastructure\DomainEventsDispatching;
+namespace Neuron\BuildingBlocks\Tests\Stub;
 
 use Neuron\BuildingBlocks\Domain\DomainEventBase;
 use Neuron\BuildingBlocks\Domain\DomainEventInterface;
@@ -12,6 +12,6 @@ class DomainEventStub extends DomainEventBase
 {
     public static function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): DomainEventInterface
     {
-        return new self();
+        return new self($id, $occurredOn);
     }
 }

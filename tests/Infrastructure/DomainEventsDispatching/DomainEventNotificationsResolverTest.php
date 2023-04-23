@@ -6,6 +6,8 @@ namespace Neuron\BuildingBlocks\Tests\Infrastructure\DomainEventsDispatching;
 
 use Neuron\BuildingBlocks\Infrastructure\DomainEventsDispatching\DomainEventNotificationNotFoundException;
 use Neuron\BuildingBlocks\Infrastructure\DomainEventsDispatching\DomainEventNotificationsResolver;
+use Neuron\BuildingBlocks\Tests\Stub\DomainEventNotificationStub;
+use Neuron\BuildingBlocks\Tests\Stub\DomainEventStub;
 use PHPUnit\Framework\TestCase;
 
 class DomainEventNotificationsResolverTest extends TestCase
