@@ -10,9 +10,9 @@ class BaseId implements \Stringable
 {
     private Uuid $value;
 
-    public function __construct(Uuid $value)
+    public function __construct(string $value)
     {
-        $this->value = $value;
+        $this->value = Uuid::fromString($value);
     }
 
     public function __toString(): string
