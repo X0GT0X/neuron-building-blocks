@@ -7,7 +7,7 @@ namespace Neuron\BuildingBlocks\Tests\Integration;
 use Neuron\BuildingBlocks\Integration\IntegrationEvent;
 use Neuron\BuildingBlocks\Integration\IntegrationEventNormalizer;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 use Symfony\Component\Uid\Uuid;
 
 class IntegrationEventNormalizerTest extends TestCase
@@ -17,7 +17,7 @@ class IntegrationEventNormalizerTest extends TestCase
     public function testThatSupportsIntegrationEvent(): void
     {
         $event = $this->createStub(IntegrationEvent::class);
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
 
         $normalizer = new IntegrationEventNormalizer($objectNormalizer);
 
@@ -26,8 +26,7 @@ class IntegrationEventNormalizerTest extends TestCase
 
     public function testThatDoesNotSupportNothingExceptIntegrationEvent(): void
     {
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
-
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
         $normalizer = new IntegrationEventNormalizer($objectNormalizer);
 
         $this->assertFalse($normalizer->supportsNormalization(new \stdClass()));
@@ -35,7 +34,7 @@ class IntegrationEventNormalizerTest extends TestCase
 
     public function testThatNormalizesDataCorrectly(): void
     {
-        $objectNormalizer = $this->createMock(ObjectNormalizer::class);
+        $objectNormalizer = $this->createMock(NormalizerInterface::class);
         $objectNormalizer->expects($this->once())
             ->method('normalize')
             ->with($this->event)

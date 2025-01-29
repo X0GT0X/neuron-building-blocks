@@ -25,7 +25,10 @@ final class NeuronBuildingBlocksExtension extends Extension
 
         $definition = $container->getDefinition(IntegrationEventMap::class);
 
-        foreach ($config[Configuration::INTEGRATION_EVENTS_MAP] ?? [] as $eventType => $eventClass) {
+        /** @var array<string, string> $integrationEventsMap */
+        $integrationEventsMap = $config[Configuration::INTEGRATION_EVENTS_MAP] ?? [];
+
+        foreach ($integrationEventsMap as $eventType => $eventClass) {
             $definition->addMethodCall('addIntegrationEventMapping', [$eventType, $eventClass]);
         }
     }

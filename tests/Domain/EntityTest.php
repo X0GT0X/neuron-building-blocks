@@ -8,14 +8,15 @@ use Neuron\BuildingBlocks\Domain\BusinessRuleInterface;
 use Neuron\BuildingBlocks\Domain\BusinessRuleValidationException;
 use Neuron\BuildingBlocks\Domain\DomainEventInterface;
 use Neuron\BuildingBlocks\Domain\Entity;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Uid\Uuid;
 
 class EntityTest extends TestCase
 {
-    private Entity $entity;
+    private SomeEntity $entity;
 
-    private BusinessRuleInterface $businessRule;
+    private BusinessRuleInterface&MockObject $businessRule;
 
     public function testAddDomainEvent(): void
     {
@@ -84,22 +85,25 @@ class EntityTest extends TestCase
         $this->businessRule = $this->createMock(BusinessRuleInterface::class);
         $otherBusinessRule = $this->createMock(BusinessRuleInterface::class);
 
-        $this->entity = new class($this->businessRule, $otherBusinessRule) extends Entity {
-            public function __construct(
-                private readonly BusinessRuleInterface $businessRule,
-                private readonly BusinessRuleInterface $otherBusinessRule
-            ) {
-            }
+        $this->entity = new SomeEntity($this->businessRule, $otherBusinessRule);
+    }
+}
 
-            public function doSomethingWithOneRule(): void
-            {
-                $this->checkRule($this->businessRule);
-            }
+class SomeEntity extends Entity
+{
+    public function __construct(
+        private readonly BusinessRuleInterface $businessRule,
+        private readonly BusinessRuleInterface $otherBusinessRule
+    ) {
+    }
 
-            public function doSomethingElseWithSeveralRules(): void
-            {
-                $this->checkRules($this->businessRule, $this->otherBusinessRule);
-            }
-        };
+    public function doSomethingWithOneRule(): void
+    {
+        $this->checkRule($this->businessRule);
+    }
+
+    public function doSomethingElseWithSeveralRules(): void
+    {
+        $this->checkRules($this->businessRule, $this->otherBusinessRule);
     }
 }

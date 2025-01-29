@@ -5,33 +5,30 @@ declare(strict_types=1);
 namespace Neuron\BuildingBlocks\Tests\Domain;
 
 use Neuron\BuildingBlocks\Domain\AbstractBusinessRule;
-use Neuron\BuildingBlocks\Domain\BusinessRuleInterface;
 use PHPUnit\Framework\TestCase;
 
 class AbstractBusinessRuleTest extends TestCase
 {
-    private BusinessRuleInterface $businessRule;
-
     public function testThatIsBrokenReturnsTrueWhenProvidedParametersAreIncorrect(): void
     {
-        $this->businessRule = new TestBusinessRule('incorrect');
+        $businessRule = new TestBusinessRule('incorrect');
 
-        $this->assertTrue($this->businessRule->isBroken());
+        $this->assertTrue($businessRule->isBroken());
     }
 
     public function testThatIsBrokenReturnsCorrectMessage(): void
     {
-        $this->businessRule = new TestBusinessRule('incorrect');
+        $businessRule = new TestBusinessRule('incorrect');
 
-        $this->assertEquals('Provided param \'incorrect\' is incorrect', $this->businessRule->getMessage());
-        $this->assertEquals(['incorrect'], $this->businessRule->getMessageArguments());
+        $this->assertEquals('Provided param \'incorrect\' is incorrect', $businessRule->getMessage());
+        $this->assertEquals(['incorrect'], $businessRule->getMessageArguments());
     }
 
     public function testThatIsBrokenReturnsFalseWhenProvidedParametersAreCorrect(): void
     {
-        $this->businessRule = new TestBusinessRule('correct');
+        $businessRule = new TestBusinessRule('correct');
 
-        $this->assertFalse($this->businessRule->isBroken());
+        $this->assertFalse($businessRule->isBroken());
     }
 }
 

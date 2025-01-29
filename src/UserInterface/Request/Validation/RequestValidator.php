@@ -22,12 +22,10 @@ final readonly class RequestValidator implements RequestValidatorInterface
         $constraintViolations = $this->transformConstraintViolationListToArray($constraintViolationList);
 
         if (\count($constraintViolations) > 0) {
-            $errors = \array_map(static function(ConstraintViolationInterface $constraintViolation) {
-                return [
-                    'property' => $constraintViolation->getPropertyPath(),
-                    'message' => $constraintViolation->getMessage(),
-                ];
-            }, $constraintViolations);
+            $errors = \array_map(static fn (ConstraintViolationInterface $constraintViolation) => [
+                'property' => $constraintViolation->getPropertyPath(),
+                'message' => $constraintViolation->getMessage(),
+            ], $constraintViolations);
 
             throw new RequestValidationException($errors);
         }

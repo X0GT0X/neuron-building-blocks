@@ -67,7 +67,7 @@ return (new PhpCsFixer\Config())
         // Basic
         'encoding' => true,
         'non_printable_character' => ['use_escape_sequences_in_strings' => true],
-        'curly_braces_position' => [
+        'braces_position' => [
             'allow_single_line_empty_anonymous_classes' => true,
 
         ],
@@ -201,7 +201,7 @@ return (new PhpCsFixer\Config())
         'no_break_comment' => false,
         'no_superfluous_elseif' => false,
         'no_unneeded_control_parentheses' => ['statements' => ['break', 'clone', 'continue', 'echo_print', 'return', 'switch_case', 'yield']],
-        'no_unneeded_curly_braces' => true,
+        'no_unneeded_braces' => true,
         'no_useless_else' => true,
         'simplified_if_return' => true,
         'switch_case_semicolon_to_colon' => true,
@@ -230,7 +230,7 @@ return (new PhpCsFixer\Config())
         'fopen_flag_order' => true,
         'fopen_flags' => ['b_mode' => true],
         'function_declaration' => ['closure_function_spacing' => 'none'],
-        'function_typehint_space' => true,
+        'type_declaration_spaces' => true,
         'implode_call' => true,
         'lambda_not_used_import' => true,
         'method_argument_space' => ['keep_multiple_spaces_after_comma' => false, 'on_multiline' => 'ensure_fully_multiline', 'after_heredoc' => true],
@@ -238,7 +238,6 @@ return (new PhpCsFixer\Config())
         'no_spaces_after_function_name' => true,
         'no_unreachable_default_argument_value' => true,
         'no_useless_sprintf' => true,
-        'nullable_type_declaration_for_default_null_value' => ['use_nullable_type_declaration' => true],
         'regular_callable_call' => true,
         'return_type_declaration' => ['space_before' => 'none'],
         'single_line_throw' => false,
@@ -270,9 +269,8 @@ return (new PhpCsFixer\Config())
         // Namespace notation
         'blank_line_after_namespace' => true,
         'clean_namespace' => true,
-        'no_blank_lines_before_namespace' => false,
+        'blank_lines_before_namespace' => true,
         'no_leading_namespace_whitespace' => true,
-        'single_blank_line_before_namespace' => true,
 
         // Naming
         'no_homoglyph_names' => true,
@@ -281,7 +279,7 @@ return (new PhpCsFixer\Config())
         'binary_operator_spaces' => ['default' => 'single_space', 'operators' => []],
         'concat_space' => ['spacing' => 'none'],
         'logical_operators' => true,
-        'new_with_braces' => true,
+        'new_with_parentheses' => true,
         'not_operator_with_space' => false,
         'not_operator_with_successor_space' => false,
         'object_operator_without_whitespace' => true,
@@ -320,7 +318,7 @@ return (new PhpCsFixer\Config())
         'strict_param' => true,
 
         // String notation
-        'escape_implicit_backslashes' => ['single_quoted' => false, 'double_quoted' => true, 'heredoc_syntax' => true],
+        'string_implicit_backslashes' => ['single_quoted' => 'unescape', 'double_quoted' => 'escape', 'heredoc' => 'escape'],
         'explicit_string_variable' => true,
         'heredoc_to_nowdoc' => true,
         'no_binary_string' => true,
@@ -356,7 +354,7 @@ return (new PhpCsFixer\Config())
                 'yield_from',
             ],
         ],
-        'compact_nullable_typehint' => true,
+        'compact_nullable_type_declaration' => true,
         'heredoc_indentation' => ['indentation' => 'start_plus_one'],
         'indentation_type' => true,
         'line_ending' => true,
@@ -378,7 +376,7 @@ return (new PhpCsFixer\Config())
             ],
         ],
         'no_spaces_around_offset' => ['positions' => ['inside', 'outside']],
-        'no_spaces_inside_parenthesis' => true,
+        'spaces_inside_parentheses' => false,
         'no_trailing_whitespace' => true,
         'no_whitespace_in_blank_line' => true,
         'single_blank_line_at_eof' => true,
@@ -397,9 +395,11 @@ return (new PhpCsFixer\Config())
         'no_empty_phpdoc' => true,
         'statement_indentation' => true,
 
+        'phpdoc_param_order' => true,
+        'php_unit_data_provider_name' => false,
+
 ////    https://github.com/kubawerlos/php-cs-fixer-custom-fixers#nouselesscommentfixer
         CommentSurroundedBySpacesFixer::name() => true,
-        DataProviderNameFixer::name() => false,
         DeclareAfterOpeningTagFixer::name() => false,
         MultilinePromotedPropertiesFixer::name() => true,
         NoCommentedOutCodeFixer::name() => true, // because dead code is trash
@@ -413,7 +413,6 @@ return (new PhpCsFixer\Config())
         NoUselessParenthesisFixer::name() => true,
         NoUselessStrlenFixer::name() => true,
         PhpdocNoSuperfluousParamFixer::name() => true,
-        PhpdocParamOrderFixer::name() => true,
         PhpdocParamTypeFixer::name() => true,
         PhpdocSelfAccessorFixer::name() => true,
         PhpdocSingleLineVarFixer::name() => true,

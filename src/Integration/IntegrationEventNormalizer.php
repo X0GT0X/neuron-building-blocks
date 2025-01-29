@@ -6,17 +6,16 @@ namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Serializer\Exception\ExceptionInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 
 final readonly class IntegrationEventNormalizer implements NormalizerInterface
 {
     public function __construct(
-        private ObjectNormalizer $normalizer
+        private NormalizerInterface $normalizer
     ) {
     }
 
     /**
-     * @param IntegrationEvent $object
+     * @param IntegrationEvent $data
      *
      * @throws ExceptionInterface
      *
@@ -27,18 +26,25 @@ final readonly class IntegrationEventNormalizer implements NormalizerInterface
      * data: string,
      * }
      */
-    public function normalize(mixed $object, ?string $format = null, array $context = []): array
+    public function normalize(mixed $data, ?string $format = null, array $context = []): array
     {
-        /** @var array{id: string, occurredOn: string, data: string} $data */
-        $data = $this->normalizer->normalize($object);
+        /** @var array{id: string, occurredOn: string, data: string} $result */
+        $result = $this->normalizer->normalize($data);
 
-        $data['type'] = $object::getEventType();
+        $result['type'] = $data::getEventType();
 
-        return $data;
+        return $result;
     }
 
-    public function supportsNormalization(mixed $data, ?string $format = null): bool
+    public function supportsNormalization(mixed $data, ?string $format = null, array $context = []): bool
     {
         return $data instanceof IntegrationEvent;
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            IntegrationEvent::class => true,
+        ];
     }
 }

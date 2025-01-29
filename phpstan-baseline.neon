@@ -1,11 +1,13 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Call to an undefined method Symfony\\\\Component\\\\Config\\\\Definition\\\\Builder\\\\NodeDefinition\\:\\:children\\(\\)\\.$#"
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeParentInterface\:\:end\(\)\.$#'
+			identifier: method.notFound
 			count: 1
 			path: src/DependencyInjection/Configuration.php
 
 		-
-			message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, array\\<Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\StampInterface\\>\\|Symfony\\\\Component\\\\Messenger\\\\Stamp\\\\StampInterface given\\.$#"
+			message: '#^Cannot call method end\(\) on mixed\.$#'
+			identifier: method.nonObject
 			count: 1
-			path: src/Integration/IntegrationEventSerializer.php
+			path: src/DependencyInjection/Configuration.php

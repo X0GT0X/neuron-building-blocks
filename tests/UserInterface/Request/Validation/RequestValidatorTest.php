@@ -27,8 +27,6 @@ class RequestValidatorTest extends TestCase
 
         $requestValidator = new RequestValidator($validator);
         $requestValidator->validate($request);
-
-        $this->assertTrue(true);
     }
 
     public function testThatThrowsValidationExceptionWhenViolationsFound(): void

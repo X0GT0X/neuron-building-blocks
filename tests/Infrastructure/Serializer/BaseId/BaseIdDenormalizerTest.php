@@ -33,7 +33,6 @@ class BaseIdDenormalizerTest extends TestCase
             'type' => BaseId::class,
         ], BaseId::class);
 
-        $this->assertInstanceOf(BaseId::class, $baseId);
         $this->assertEquals('63957461-9332-434f-b1be-53058455c933', (string) $baseId->getValue());
     }
 }
