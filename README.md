@@ -7,12 +7,12 @@ Internal Neuron library with Building blocks for microservices.
 ## Local development
 
 ### Requirements
-1. PHP (~8.2)
+1. PHP (^8.4)
 2. Composer
 
 ### Available commands
 - `make test` - unit testing
-- `make cs-fix` - PHP CS fixer
+- `make php-cs` - PHP CS fixer
 - `make php-stan` - PHP Stan
 - `make php-stan-baseline` - PHP Stan baseline generation
 
