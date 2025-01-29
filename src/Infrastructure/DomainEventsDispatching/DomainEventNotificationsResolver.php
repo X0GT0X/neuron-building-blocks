@@ -10,11 +10,11 @@ use Neuron\BuildingBlocks\Domain\DomainEventInterface;
 
 class DomainEventNotificationsResolver implements DomainEventNotificationsResolverInterface
 {
-    /** @var string[] */
+    /** @var class-string<AbstractDomainEventNotification>[] */
     private array $domainEventNotifications = [];
 
     /**
-     * @param string[] ...$domainEventNotifications
+     * @param class-string<AbstractDomainEventNotification>[] ...$domainEventNotifications
      */
     public function __construct(array ...$domainEventNotifications)
     {
@@ -23,17 +23,19 @@ class DomainEventNotificationsResolver implements DomainEventNotificationsResolv
         }
     }
 
+    /**
+     * @throws \ReflectionException
+     * @throws DomainEventNotificationNotFoundException
+     */
     public function getNotificationTypeByDomainEvent(DomainEventInterface $domainEvent): string
     {
         foreach ($this->domainEventNotifications as $notification) {
             $reflection = new \ReflectionClass($notification);
 
-            if ($reflection->isSubclassOf(AbstractDomainEventNotification::class)) {
-                $domainEventNotificationAttribute = $reflection->getAttributes(DomainEventNotification::class)[0];
+            $domainEventNotificationAttribute = $reflection->getAttributes(DomainEventNotification::class)[0];
 
-                if ($domainEventNotificationAttribute->getArguments()[0] === $domainEvent::class) {
-                    return $notification;
-                }
+            if ($domainEventNotificationAttribute->getArguments()[0] === $domainEvent::class) {
+                return $notification;
             }
         }
 

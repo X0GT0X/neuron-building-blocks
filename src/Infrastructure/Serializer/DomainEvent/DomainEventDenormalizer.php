@@ -11,10 +11,13 @@ use Symfony\Component\Uid\Uuid;
 final readonly class DomainEventDenormalizer implements DenormalizerInterface
 {
     /**
-     * {@inheritDoc}
+     * @param array{type: string, id: string, occurredOn: string} $data
+     *
+     * @throws \DateMalformedStringException
      */
-    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = [])
+    public function denormalize(mixed $data, string $type, ?string $format = null, array $context = []): DomainEventInterface
     {
+        /** @var DomainEventInterface */
         return $data['type']::from(
             new Uuid($data['id']),
             new \DateTimeImmutable($data['occurredOn']),
@@ -22,11 +25,15 @@ final readonly class DomainEventDenormalizer implements DenormalizerInterface
         );
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function supportsDenormalization(mixed $data, string $type, ?string $format = null)
+    public function supportsDenormalization(mixed $data, string $type, ?string $format = null, array $context = []): bool
     {
         return \is_a($type, DomainEventInterface::class, true);
+    }
+
+    public function getSupportedTypes(?string $format): array
+    {
+        return [
+            DomainEventInterface::class => true,
+        ];
     }
 }

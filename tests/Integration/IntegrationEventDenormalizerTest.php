@@ -75,6 +75,9 @@ class IntegrationEventDenormalizerTest extends TestCase
                 ];
             }
 
+            /**
+             * @param array{someParam: string} $data
+             */
             public static function from(Uuid $id, \DateTimeImmutable $occurredOn, array $data): IntegrationEvent
             {
                 return new self($id, $occurredOn, $data['someParam']);

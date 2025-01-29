@@ -7,14 +7,14 @@ namespace Neuron\BuildingBlocks\Tests\Infrastructure\Serializer\BaseId;
 use Neuron\BuildingBlocks\Domain\BaseId;
 use Neuron\BuildingBlocks\Infrastructure\Serializer\BaseId\BaseIdNormalizer;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class BaseIdNormalizerTest extends TestCase
 {
     public function testThatSupportsBaseId(): void
     {
-        $baseId = $this->createStub(BaseId::class);
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
+        $baseId = new BaseId('63957461-9332-434f-b1be-53058455c933');
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
 
         $normalizer = new BaseIdNormalizer($objectNormalizer);
 
@@ -23,8 +23,7 @@ class BaseIdNormalizerTest extends TestCase
 
     public function testThatDoesNotSupportNothingExceptBaseId(): void
     {
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
-
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
         $normalizer = new BaseIdNormalizer($objectNormalizer);
 
         $this->assertFalse($normalizer->supportsNormalization(\stdClass::class));
@@ -33,7 +32,7 @@ class BaseIdNormalizerTest extends TestCase
     public function testThatNormalizesDataCorrectly(): void
     {
         $baseId = new BaseId('63957461-9332-434f-b1be-53058455c933');
-        $objectNormalizer = $this->createMock(ObjectNormalizer::class);
+        $objectNormalizer = $this->createMock(NormalizerInterface::class);
         $objectNormalizer->expects($this->once())
             ->method('normalize')
             ->with($baseId)

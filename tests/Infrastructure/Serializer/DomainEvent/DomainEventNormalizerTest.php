@@ -7,14 +7,14 @@ namespace Neuron\BuildingBlocks\Tests\Infrastructure\Serializer\DomainEvent;
 use Neuron\BuildingBlocks\Domain\DomainEventInterface;
 use Neuron\BuildingBlocks\Infrastructure\Serializer\DomainEvent\DomainEventNormalizer;
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class DomainEventNormalizerTest extends TestCase
 {
     public function testThatSupportsDomainEventInterface(): void
     {
         $domainEvent = $this->createStub(DomainEventInterface::class);
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
 
         $normalizer = new DomainEventNormalizer($objectNormalizer);
 
@@ -23,8 +23,7 @@ class DomainEventNormalizerTest extends TestCase
 
     public function testThatDoesNotSupportNothingExceptDomainEventInterface(): void
     {
-        $objectNormalizer = $this->createStub(ObjectNormalizer::class);
-
+        $objectNormalizer = $this->createStub(NormalizerInterface::class);
         $normalizer = new DomainEventNormalizer($objectNormalizer);
 
         $this->assertFalse($normalizer->supportsNormalization(\stdClass::class));
@@ -33,7 +32,8 @@ class DomainEventNormalizerTest extends TestCase
     public function testThatNormalizesDataCorrectly(): void
     {
         $domainEvent = $this->createStub(DomainEventInterface::class);
-        $objectNormalizer = $this->createMock(ObjectNormalizer::class);
+
+        $objectNormalizer = $this->createMock(NormalizerInterface::class);
         $objectNormalizer->expects($this->once())
             ->method('normalize')
             ->with($domainEvent)

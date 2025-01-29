@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Neuron\BuildingBlocks\Integration;
 
 use Symfony\Component\Messenger\Envelope;
+use Symfony\Component\Messenger\Stamp\StampInterface;
 use Symfony\Component\Messenger\Transport\Serialization\SerializerInterface as TransportSerializerInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
@@ -23,6 +24,7 @@ readonly class IntegrationEventSerializer implements TransportSerializerInterfac
         $headers = $encodedEnvelope['headers'];
         $event = $this->serializer->deserialize($encodedEnvelope['body'], IntegrationEvent::class, 'json');
 
+        /** @var StampInterface[] $stamps */
         $stamps = \unserialize($headers['stamps']);
 
         return new Envelope($event, $stamps);

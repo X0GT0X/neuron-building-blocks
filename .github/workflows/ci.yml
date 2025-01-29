@@ -31,8 +31,9 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress
 
+#    Adding PHP_CS_FIXER_IGNORE_ENV=1 until PHP 8.4 support is added
     - name: PHP CS
-      run: composer run-script php-cs
+      run: PHP_CS_FIXER_IGNORE_ENV=1 composer run-script php-cs
 
     - name: PHP Stan
       run: composer run-script php-stan

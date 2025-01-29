@@ -2,14 +2,11 @@ includes:
     - phpstan-baseline.neon
 
 parameters:
-    level: 8
+    level: max
     checkUninitializedProperties: true
-    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
-#        - tests
+        - tests
     ignoreErrors:
-        -
-            message: "#^Parameter \\#1 \\$objectOrClass of class ReflectionClass constructor expects class\\-string\\<T of object\\>\\|T of object, string given\\.$#"
         -
             message: "#^Method .+ has parameter \\$context with no value type specified in iterable type array.$#"
