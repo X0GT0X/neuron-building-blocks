@@ -12,6 +12,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\Serializer\Exception\MissingConstructorArgumentsException;
+use Symfony\Component\Serializer\Exception\NotNormalizableValueException;
+use Symfony\Component\Serializer\Exception\PartialDenormalizationException;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class RequestArgumentResolverTest extends TestCase
@@ -24,7 +27,7 @@ class RequestArgumentResolverTest extends TestCase
 
     public function testThatReturnsEmptyArrayForInvalidArgument(): void
     {
-        $request = new Request(content: \json_encode(['foo' => 'bar'], \JSON_THROW_ON_ERROR));
+        $request = new Request(content: \json_encode([], \JSON_THROW_ON_ERROR));
 
         $argumentMetadata = $this->createStub(ArgumentMetadata::class);
         $argumentMetadata->method('getType')->willReturn(\stdClass::class);
@@ -36,7 +39,7 @@ class RequestArgumentResolverTest extends TestCase
 
     public function testThatSuccessfullyDeserializesAndValidatesRequest(): void
     {
-        $request = new Request(content: \json_encode(['foo' => 'bar'], \JSON_THROW_ON_ERROR));
+        $request = new Request(content: \json_encode([], \JSON_THROW_ON_ERROR));
 
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')->willReturn(MockRequest::class);
@@ -54,7 +57,7 @@ class RequestArgumentResolverTest extends TestCase
 
     public function testThatThrowsExceptionOnInvalidRequest(): void
     {
-        $request = new Request(content: \json_encode(['foo' => 'bar'], \JSON_THROW_ON_ERROR));
+        $request = new Request(content: \json_encode([], \JSON_THROW_ON_ERROR));
 
         $argumentMetadata = $this->createMock(ArgumentMetadata::class);
         $argumentMetadata->method('getType')->willReturn(MockRequest::class);
@@ -73,6 +76,56 @@ class RequestArgumentResolverTest extends TestCase
         $this->expectException(RequestValidationException::class);
 
         $this->resolver->resolve($request, $argumentMetadata);
+    }
+
+    public function testThatThrowsValidationExceptionIfThereAreMissingArguments(): void
+    {
+        $request = new Request(content: \json_encode([], \JSON_THROW_ON_ERROR));
+
+        $argumentMetadata = $this->createMock(ArgumentMetadata::class);
+        $argumentMetadata->method('getType')->willReturn(MockRequest::class);
+
+        $expectedException = new MissingConstructorArgumentsException('Some arguments missing', missingArguments: ['someProperty']);
+        $this->serializer->method('deserialize')->willThrowException($expectedException);
+
+        $this->expectException(RequestValidationException::class);
+
+        try {
+            $this->resolver->resolve($request, $argumentMetadata);
+        } catch (RequestValidationException $exception) {
+            $this->assertEquals([[
+                'property' => 'someProperty',
+                'message' => 'This value is required.',
+            ]], $exception->getErrors());
+
+            throw $exception;
+        }
+    }
+
+    public function testThatThrowsValidationExceptionIfSomeArgumentHasUnsupportedType(): void
+    {
+        $request = new Request(content: \json_encode([], \JSON_THROW_ON_ERROR));
+
+        $argumentMetadata = $this->createMock(ArgumentMetadata::class);
+        $argumentMetadata->method('getType')->willReturn(MockRequest::class);
+
+        $expectedException = new PartialDenormalizationException([], [
+            NotNormalizableValueException::createForUnexpectedDataType('Some message', null, ['string'], path: 'someProperty'),
+        ]);
+        $this->serializer->method('deserialize')->willThrowException($expectedException);
+
+        $this->expectException(RequestValidationException::class);
+
+        try {
+            $this->resolver->resolve($request, $argumentMetadata);
+        } catch (RequestValidationException $exception) {
+            $this->assertEquals([[
+                'property' => 'someProperty',
+                'message' => 'The type must be one of "string" ("null" given).',
+            ]], $exception->getErrors());
+
+            throw $exception;
+        }
     }
 
     protected function setUp(): void
